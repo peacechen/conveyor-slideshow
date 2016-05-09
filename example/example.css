@@ -1,0 +1,113 @@
+.conveyor-container {
+	position: absolute;
+	top: 10px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: 50px;
+}
+.conveyor {
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.conveyor-ctrl-left {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 20px;
+	z-index: 100;
+}
+.conveyor-ctrl-right {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 20px;
+	z-index: 100;
+}
+.conveyor-prev,
+.conveyor-next {
+	color: blue;
+	font-size: 30px;
+}
+.conveyor-prev:hover,
+.conveyor-next:hover {
+	color: yellow;
+	cursor: pointer;
+}
+
+.conveyor-display {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.conveyor-current {
+	transition: 0.4s ease margin-left 0s;
+	visibility: visible !important;
+}
+.conveyor-dot {
+	background: white;
+	border: 2px solid blue;
+	box-shadow: 0 0 0 1px white;
+	border-radius: 5px;
+	box-sizing: border-box;
+	display: inline-block;
+	height: 10px;
+	margin: 3px;
+	opacity: 0.80;
+	width: 10px;
+}
+.conveyor-dot-current {
+	background: blue;
+	box-shadow: 0 0 0 1px blue;
+}
+.dotsList {
+	position: absolute;
+	width: 100%;
+	bottom: 5%;
+	text-align: center;
+	z-index: 200;
+	margin: 0 auto;
+	border-radius: 3px;
+	pointer-events: none;
+}
+.item {
+	visibility: hidden;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.icon-arrow-left:before {
+    content: "<";
+}
+.icon-arrow-right:before {
+    content: ">";
+}
+.icon {
+    font-size: 35px;
+    margin: auto 10px auto 0;
+    line-height: 1em;
+    color: blue;
+}
+
+ol {
+	padding: 0;
+}

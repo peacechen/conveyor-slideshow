@@ -1,0 +1,29 @@
+{
+  "name": "conveyor-slideshow",
+  "version": "0.7.0",
+  "author": "Gil McQuillan, Akhilesh Malla, Peace Chen",
+  "license": "MIT",
+  "description": "Simple slider written in plain old JS / HTML5 / CSS",
+  "keywords": [
+    "conveyor",
+    "carousel",
+    "slider",
+    "slideshow",
+    "Javascript",
+    "HTML5",
+    "CSS"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/peacechen/conveyor-slideshow/"
+  },
+  "bugs": "https://github.com/peacechen/conveyor-slideshow/issues",
+  "main": "src/conveyor.js",
+  "scripts": {
+    "example": "node node_modules/serve/bin/serve . -p 8080"
+  },
+  "devDependencies": {
+    "serve": "^1.4.0"
+  },
+  "dependencies": {}
+}
