@@ -72,7 +72,7 @@
 		var numSlides = 0;
 		function createDots(conveyorEl, itemsLength) {
 			numSlides = itemsLength;
-			if (numSlides > 0 && showPaginationDots) {
+			if (numSlides > 1 && showPaginationDots) {
 				var dotslist = "";
 				for (var i = 0; i < numSlides; i++) {
 					dotslist += "<li class='conveyor-dot'></li>";
@@ -82,7 +82,7 @@
 		}
 
 		function setCurrentDot(index) {
-			if (numSlides > 0 && showPaginationDots) {
+			if (numSlides > 1 && showPaginationDots) {
 				var currentIndex = Math.abs(index),
 					dotsList = conveyor.getElementsByClassName("dotsList")[0];
 					currDot = dotsList.getElementsByClassName("conveyor-dot-current")[0]
@@ -94,7 +94,7 @@
 		}
 
 		function destroyDots() {
-			if (numSlides > 0 && showPaginationDots) {
+			if (numSlides > 1 && showPaginationDots) {
 				var dots = containerElement.getElementsByTagName("ol");
 				for (var i = dots.length - 1; i >= 0; i--) {
 			        dots[i].parentNode.removeChild(dots[i]);
@@ -127,7 +127,7 @@
 			nextArrow;
 
 		function createArrows(conveyorEl, numSlides) {
-			if (numSlides === 0) {
+			if (numSlides < 2) {
 				return; // Only show arrows if more than one slide
 			}
 
