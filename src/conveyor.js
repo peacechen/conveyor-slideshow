@@ -105,6 +105,9 @@
 		//----------------------------------------------------------------------
 		function navigate(direction) {
 			var items = getItems();
+			if (items.length < 1) {
+				throw {error: "Conveyor: No slides found."};
+			}
 			var current = items[currIndex];
 			if (current) {
 				current.classList.remove("conveyor-current");

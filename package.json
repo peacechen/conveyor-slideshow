@@ -1,6 +1,6 @@
 {
   "name": "conveyor-slideshow",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "author": "Gil McQuillan, Akhilesh Malla, Peace Chen",
   "license": "MIT",
   "description": "Simple slider written in plain old JS / HTML5 / CSS",
