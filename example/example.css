@@ -57,7 +57,6 @@
 
 .conveyor-current {
 	transition: 0.4s ease margin-left 0s;
-	visibility: visible !important;
 }
 .conveyor-dot {
 	background: white;
@@ -86,7 +85,6 @@
 	pointer-events: none;
 }
 .item {
-	visibility: hidden;
 	pointer-events: none;
 	position: absolute;
 	top: 0;

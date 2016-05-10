@@ -106,10 +106,9 @@
 		function navigate(direction) {
 			var items = getItems();
 			var current = items[currIndex];
-			if (!current) {
-				return;
+			if (current) {
+				current.classList.remove("conveyor-current");
 			}
-			current.classList.remove("conveyor-current");
 
 			// Handle positive & negative wrap-around
 			currIndex = (currIndex + direction) % items.length;
@@ -117,8 +116,18 @@
 				currIndex = items.length + currIndex;
 			}
 			setCurrentDot(currIndex, items.length);
-			var current = items[currIndex];
+			current = items[currIndex];
+            if (!current) {
+                throw {error: "Conveyor: Unable to navigate to slide " + currIndex};
+			}
 			current.classList.add("conveyor-current");
+			// Show only current slide; hide all others.
+			current.style.visibility = "visible";
+			for (var i=0; i<items.length; i++) {
+				if (i !== currIndex) {
+					items[i].style.visibility = "hidden";
+				}
+			}
 		}
 
 		//----------------------------------------------------------------------
@@ -130,7 +139,6 @@
 			if (numSlides < 2) {
 				return; // Only show arrows if more than one slide
 			}
-
 			conveyorEl.innerHTML += "<div class='conveyor-ctrl-left'><a class='conveyor-prev'>" +
                     				"<span class='icon icon-arrow-left'></span>" +
                 					"</a></div>" +
@@ -141,25 +149,21 @@
 			prevArrow = conveyorEl.getElementsByClassName("conveyor-prev")[0];
 			nextArrow = conveyorEl.getElementsByClassName("conveyor-next")[0];
 
-			if (prevArrow) {
-				prevArrow.addEventListener("click", prevArrowClickHandler);
+			if (!prevArrow || !nextArrow) {
+                throw {error: "Conveyor: Unable to create arrows"};
 			}
-			if (nextArrow) {
-				nextArrow.addEventListener("click", nextArrowClickHandler);
-			}
+			prevArrow.addEventListener("click", prevArrowClickHandler);
+			nextArrow.addEventListener("click", nextArrowClickHandler);
 		}
 
 		function destroyArrows() {
-			if (prevArrow) {
-				prevArrow.removeEventListener("click", prevArrowClickHandler);
-				var prevArrowParent = prevArrow.parentNode; // aka conveyor-ctrl-left
-				prevArrowParent.parentNode.removeChild(prevArrowParent);
-			}
-			if (nextArrow) {
-				nextArrow.removeEventListener("click", nextArrowClickHandler);
-				var nextArrowParent = nextArrow.parentNode; // aka conveyor-ctrl-right
-				nextArrowParent.parentNode.removeChild(nextArrowParent);
-			}
+			prevArrow.removeEventListener("click", prevArrowClickHandler);
+			var prevArrowParent = prevArrow.parentNode; // aka conveyor-ctrl-left
+			prevArrowParent.parentNode.removeChild(prevArrowParent);
+
+			nextArrow.removeEventListener("click", nextArrowClickHandler);
+			var nextArrowParent = nextArrow.parentNode; // aka conveyor-ctrl-right
+			nextArrowParent.parentNode.removeChild(nextArrowParent);
 		}
 
 		function prevArrowClickHandler(ev) {
