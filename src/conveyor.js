@@ -71,6 +71,7 @@
 		//----------------------------------------------------------------------
 		var numSlides = 0;
 		function createDots(conveyorEl, itemsLength) {
+			destroyDots(); // re-draw dots in case number of slides has changed
 			numSlides = itemsLength;
 			if (numSlides > 1 && showPaginationDots) {
 				var dotslist = "";
@@ -95,7 +96,7 @@
 
 		function destroyDots() {
 			if (numSlides > 1 && showPaginationDots) {
-				var dots = containerElement.getElementsByTagName("ol");
+				var dots = containerElement.getElementsByClassName("dotsList");
 				for (var i = dots.length - 1; i >= 0; i--) {
 			        dots[i].parentNode.removeChild(dots[i]);
 			    }
@@ -103,8 +104,8 @@
 		}
 
 		//----------------------------------------------------------------------
-		function navigate(direction) {
-			var items = getItems();
+		function navigate(index) {
+			var items = getItems(); // must retrieve fresh elements list in case DOM has changed
 			if (items.length < 1) {
 				throw {error: "Conveyor: No slides found."};
 			}
@@ -114,7 +115,7 @@
 			}
 
 			// Handle positive & negative wrap-around
-			currIndex = (currIndex + direction) % items.length;
+			currIndex = (index) % items.length;
 			if (currIndex < 0) {
 				currIndex = items.length + currIndex;
 			}
@@ -135,10 +136,8 @@
 
 		//----------------------------------------------------------------------
 		// Setup previous and next arrow buttons
-		var prevArrow,
-			nextArrow;
-
 		function createArrows(conveyorEl, numSlides) {
+			destroyArrows(); // re-draw arrows in case number of slides has changed
 			if (numSlides < 2) {
 				return; // Only show arrows if more than one slide
 			}
@@ -149,8 +148,8 @@
                     				"<span class='icon icon-arrow-right'></span>" +
                 					"</a></div>";
 
-			prevArrow = conveyorEl.getElementsByClassName("conveyor-prev")[0];
-			nextArrow = conveyorEl.getElementsByClassName("conveyor-next")[0];
+			var prevArrow = conveyorEl.getElementsByClassName("conveyor-prev")[0];
+			var nextArrow = conveyorEl.getElementsByClassName("conveyor-next")[0];
 
 			if (!prevArrow || !nextArrow) {
                 throw {error: "Conveyor: Unable to create arrows"};
@@ -160,21 +159,27 @@
 		}
 
 		function destroyArrows() {
-			prevArrow.removeEventListener("click", prevArrowClickHandler);
-			var prevArrowParent = prevArrow.parentNode; // aka conveyor-ctrl-left
-			prevArrowParent.parentNode.removeChild(prevArrowParent);
-
-			nextArrow.removeEventListener("click", nextArrowClickHandler);
-			var nextArrowParent = nextArrow.parentNode; // aka conveyor-ctrl-right
-			nextArrowParent.parentNode.removeChild(nextArrowParent);
+			// must retrieve fresh elements in case DOM has changed
+			var prevArrow = conveyor.getElementsByClassName("conveyor-prev")[0];
+			if(prevArrow) {
+				prevArrow.removeEventListener("click", prevArrowClickHandler);
+				var prevArrowParent = prevArrow.parentNode; // aka conveyor-ctrl-left
+				prevArrowParent.parentNode.removeChild(prevArrowParent);
+			}
+			var nextArrow = conveyor.getElementsByClassName("conveyor-next")[0];
+			if(nextArrow) {
+				nextArrow.removeEventListener("click", nextArrowClickHandler);
+				var nextArrowParent = nextArrow.parentNode; // aka conveyor-ctrl-right
+				nextArrowParent.parentNode.removeChild(nextArrowParent);
+			}
 		}
 
 		function prevArrowClickHandler(ev) {
-			navigate(-1);
+			navigate(currIndex-1);
 		}
 
 		function nextArrowClickHandler(ev) {
-			navigate(1);
+			navigate(currIndex+1);
 		}
 		//----------------------------------------------------------------------
 
