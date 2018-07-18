@@ -23,7 +23,7 @@
     "example": "node node_modules/serve/bin/serve . -p 8080"
   },
   "devDependencies": {
-    "serve": "^1.4.0"
+    "serve": "^9.2.0"
   },
   "dependencies": {}
 }
